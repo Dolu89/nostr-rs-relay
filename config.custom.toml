@@ -2,7 +2,7 @@
 
 [info]
 # The advertised URL for the Nostr websocket.
-relay_url = "wss://nostr.example.com/"
+relay_url = "wss://nostr-rs-relay-production-c3b5.up.railway.app/"
 
 # Relay information for clients.  Put your unique server name here.
 name = "nostr-rs-relay"
