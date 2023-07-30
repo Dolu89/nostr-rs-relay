@@ -27,7 +27,6 @@ FROM docker.io/library/debian:bookworm-slim
 ARG RAILWAY_VOLUME_MOUNT_PATH
 ENV RAILWAY_VOLUME_MOUNT_PATH=${RAILWAY_VOLUME_MOUNT_PATH}
 ARG APP=/usr/src/app
-ARG APP_DATA=${RAILWAY_VOLUME_MOUNT_PATH}
 RUN apt-get update \
     && apt-get install -y ca-certificates tzdata sqlite3 libc6 \
     && rm -rf /var/lib/apt/lists/*
@@ -50,6 +49,5 @@ USER $APP_USER
 WORKDIR ${APP}
 
 ENV RUST_LOG=info,nostr_rs_relay=info
-ENV APP_DATA=${APP_DATA}
 
-CMD ./nostr-rs-relay --db ${APP_DATA} --config ./config.toml
+CMD ./nostr-rs-relay --db ${RAILWAY_VOLUME_MOUNT_PATH} --config ./config.toml
