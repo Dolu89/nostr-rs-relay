@@ -159,9 +159,9 @@ reject_future_seconds = 1800
 #  "887645fef0ce0c3c1218d2f5d8e6132a19304cdc57cd20281d082f38cfea0072",
 #]
 # Enable NIP-42 authentication
-#nip42_auth = false
+nip42_auth = true
 # Send DMs events (kind 4) only to their authenticated recipients
-#nip42_dms = false
+nip42_dms = true
 
 [verified_users]
 # NIP-05 verification of users.  Can be "enabled" to require NIP-05
