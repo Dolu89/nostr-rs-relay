@@ -16,7 +16,6 @@ RUN rm src/*.rs
 COPY ./src ./src
 COPY ./proto ./proto
 COPY ./build.rs ./build.rs
-COPY ./config.custom.toml ./config.toml
 
 # build auditable release using locked deps
 RUN rm ./target/release/deps/nostr*relay*
@@ -40,6 +39,8 @@ RUN groupadd $APP_USER \
     && mkdir -p ${APP} \
     && mkdir -p ${APP_DATA}
 
+COPY --from=builder /nostr-rs-relay/config.custom.toml ${APP}/config.toml
+
 COPY --from=builder /nostr-rs-relay/target/release/nostr-rs-relay ${APP}/nostr-rs-relay
 
 RUN chown -R $APP_USER:$APP_USER ${APP}
@@ -50,4 +51,4 @@ WORKDIR ${APP}
 ENV RUST_LOG=info,nostr_rs_relay=info
 ENV APP_DATA=${APP_DATA}
 
-CMD ./nostr-rs-relay --db ${APP_DATA} --config ${APP}/nostr-rs-relay/config.toml
+CMD ./nostr-rs-relay --db ${APP_DATA} --config ${APP}/config.toml
